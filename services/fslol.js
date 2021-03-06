@@ -48,6 +48,24 @@ function fsMethods() {
         return [];
       }
     },
+    delete: async function (id) {
+      try {
+        const datajson = await this.list();
+        datajson.forEach((element, index) => {
+          if (element.id === id) {
+            datajson.splice(index, 1);
+          }
+        });
+        await writeFile(
+          `${__dirname}/../crush.json`,
+          JSON.stringify(datajson),
+          "utf8"
+        );
+      } catch (error) {
+        console.log(" - deu pau oh:", error);
+        return [];
+      }
+    },
     setToken: async function (token) {
       try {
         const data = await readFile(`${__dirname}/../token.json`, "utf8");

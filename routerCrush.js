@@ -98,4 +98,11 @@ router.put("/:id", validaToken, validaCorpoeHeader, (req, res) => {
   });
 });
 
+router.delete("/:id", validaToken, (req, res) => {
+  const { id } = req.params;
+  newFsMethods.delete(parseInt(id)).then((r) => {
+    return res.status(200).json({ "message": "Crush deletado com sucesso" });
+  });
+});
+
 module.exports = router;
