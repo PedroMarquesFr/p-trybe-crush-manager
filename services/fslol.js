@@ -29,6 +29,25 @@ function fsMethods() {
         return [];
       }
     },
+    edit: async function (id, newCrush) {
+      try {
+        const datajson = await this.list();
+        datajson.forEach((element, index) => {
+          if (element.id === parseInt(id)) {
+            datajson[index] = { id, ...newCrush };
+          }
+        });
+        await writeFile(
+          `${__dirname}/../crush.json`,
+          JSON.stringify(datajson),
+          "utf8"
+        );
+        return datajson;
+      } catch (error) {
+        console.log(" - deu pau oh:", error);
+        return [];
+      }
+    },
     setToken: async function (token) {
       try {
         const data = await readFile(`${__dirname}/../token.json`, "utf8");
